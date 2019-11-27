@@ -5,7 +5,7 @@ variable "region" {
 
 variable "cidr" {
   type    = string
-  default = cidrsubnet("10.0.0.0/8", 8, 0)
+  default = "10.0.0.0/16"
 }
 
 variable "az_letters" {
@@ -13,7 +13,12 @@ variable "az_letters" {
   default = ["a", "b", "c", "d"]
 }
 
+variable "ami_ids" {
+  type = map(string)
+}
+
 locals {
-  public_cidr  = cidrsubnet(var.cidr, 1, 0)
-  private_cidr = cidrsubnet(var.cidr, 1, 1)
+  public_cidr        = cidrsubnet(var.cidr, 1, 0)
+  private_cidr       = cidrsubnet(var.cidr, 1, 1)
+  availability_zones = formatlist("%s%s", var.region, var.az_letters)
 }

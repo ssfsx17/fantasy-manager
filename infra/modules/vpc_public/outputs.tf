@@ -9,8 +9,8 @@ output "cidr" {
   value = var.cidr
 }
 
-output "resource_letters" {
-  value = var.resource_letters
+output "az_letters" {
+  value = var.az_letters
 }
 
 output "public_cidr" {
@@ -43,8 +43,8 @@ output "natgw_eips" {
   value = aws_eip.natgw
 }
 
-output "natgws" {
-  value = aws_nat_gateway.natgw
+output "natgw" {
+  value = aws_nat_gateway.gw
 }
 
 output "private_route_table" {

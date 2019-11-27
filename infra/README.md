@@ -28,3 +28,15 @@ aws s3api put-bucket-versioning \
   --bucket ${INFRA_BUCKET_NAME} \
   --versioning-configuration Status=Enabled
 ```
+
+Assumes you have a keypair in EC2, named "admin_ssh". Otherwise, you can create it as follows:
+```
+aws ec2 create-key-pair --key-name admin_ssh | tee privatekey.json
+cat privatekey.json | jq -r '.KeyMaterial' | tee ~/.ssh/admin_ssh.pem
+chmod 0600 ~/.ssh/admin_ssh.pem
+rm -f privatekey.json
+
+# save ~/.ssh/admin_ssh.pem to your own key store
+```
+
+Using Amazon Linux, the default user is `ec2-user`
