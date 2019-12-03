@@ -140,3 +140,43 @@ resource "aws_security_group_rule" "public_https_ingress_from_world" {
   to_port   = 443
   protocol  = "tcp"
 }
+
+resource "aws_security_group_rule" "private_http_ingress_from_public" {
+  security_group_id        = aws_security_group.private.id
+  source_security_group_id = aws_security_group.public.id
+
+  type      = "ingress"
+  from_port = 80
+  to_port   = 80
+  protocol  = "tcp"
+}
+
+resource "aws_security_group_rule" "private_https_ingress_from_public" {
+  security_group_id        = aws_security_group.private.id
+  source_security_group_id = aws_security_group.public.id
+
+  type      = "ingress"
+  from_port = 443
+  to_port   = 443
+  protocol  = "tcp"
+}
+
+resource "aws_security_group_rule" "private_http_ingress_from_bastion" {
+  security_group_id        = aws_security_group.private.id
+  source_security_group_id = aws_security_group.bastion.id
+
+  type      = "ingress"
+  from_port = 80
+  to_port   = 80
+  protocol  = "tcp"
+}
+
+resource "aws_security_group_rule" "private_https_ingress_from_bastion" {
+  security_group_id        = aws_security_group.private.id
+  source_security_group_id = aws_security_group.bastion.id
+
+  type      = "ingress"
+  from_port = 443
+  to_port   = 443
+  protocol  = "tcp"
+}

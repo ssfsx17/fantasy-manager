@@ -17,6 +17,16 @@ resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(local.public_cidr, 3, count.index)
   availability_zone = local.availability_zones[count.index]
+
+  tags = {
+    "kubernetes.io/role/elb" = "1"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      tags,
+    ]
+  }
 }
 
 resource "aws_eip" "natgw" {

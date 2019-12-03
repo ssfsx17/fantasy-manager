@@ -13,6 +13,16 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(local.private_cidr, 3, count.index)
   availability_zone = local.availability_zones[count.index]
+
+  tags = {
+    "kubernetes.io/role/internal-elb" = "1"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      tags,
+    ]
+  }
 }
 
 resource "aws_route_table_association" "private" {
