@@ -17,6 +17,10 @@ variable "ami_ids" {
   type = map(string)
 }
 
+variable "bastion_key" {
+  type = string
+}
+
 locals {
   public_cidr        = cidrsubnet(var.cidr, 1, 0)
   private_cidr       = cidrsubnet(var.cidr, 1, 1)

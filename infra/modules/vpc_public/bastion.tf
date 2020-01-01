@@ -6,7 +6,7 @@ resource "aws_launch_template" "ssh_bastion" {
   ebs_optimized = true
   image_id      = var.ami_ids[var.region]
   instance_type = "t3.micro"
-  key_name      = "admin_ssh"
+  key_name      = var.bastion_key
 
   network_interfaces {
     associate_public_ip_address = true

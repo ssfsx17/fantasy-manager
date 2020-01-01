@@ -1,16 +1,7 @@
-
 // Read back variables and locals
 
-output "public_vpc_id" {
-  value = var.public_vpc_id
-}
-
-output "natgw_route_table_id" {
-  value = var.natgw_route_table_id
-}
-
-output "natgw_ids" {
-  value = var.natgw_ids
+output "region" {
+  value = var.region
 }
 
 output "cidr" {
@@ -21,28 +12,40 @@ output "az_letters" {
   value = var.az_letters
 }
 
+output "target_vpc_id" {
+  value = var.target_vpc_id
+}
+
+output "target_vpc_sg_bastion" {
+  value = var.target_vpc_sg_bastion
+}
+
 // Actual outputs
 
 output "vpc" {
   value = aws_vpc.vpc
 }
 
+output "security_group" {
+  value = aws_security_group.private
+}
+
+output "route_tables" {
+  value = aws_route_table.private
+}
+
 output "subnets" {
   value = aws_subnet.private
 }
 
-output "vpc_peering_connection" {
-  value = aws_vpc_peering_connection.vpcpc
+output "route_table_associations" {
+  value = aws_route_table_association.private
 }
 
-output "route_this_to_main_vpc" {
-  value = aws_route.this_to_main_vpc
+output "private_routes_to_vpclink" {
+  value = aws_route.private_to_target
 }
 
-output "route_main_vpc_to_this" {
-  value = aws_route.main_vpc_to_this
-}
-
-output "route_natgw_to_this" {
-  value = aws_route.natgw_to_this
+output "target_routes_to_vpclink" {
+  value = aws_route.target_to_private
 }
